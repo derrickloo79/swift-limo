@@ -139,6 +139,11 @@
                 </select>
                 <p class="field-error" id="vehicle-error" hidden></p>
               </div>
+              <div class="field" data-field="datetime">
+                <label for="datetime">Date and time</label>
+                <input id="datetime" name="datetime" type="datetime-local" />
+                <p class="field-error" id="datetime-error" hidden></p>
+              </div>
               <div class="field" data-field="service">
                 <label for="service">Service</label>
                 <select id="service" name="service">
@@ -154,37 +159,24 @@
                 </select>
                 <p class="field-error" id="service-error" hidden></p>
               </div>
-              <div class="field" data-field="passengers">
-                <label for="passengers">Passengers</label>
-                <select id="passengers" name="passengers">
-                  <option value="">Select passengers</option>
-                  <option value="1">1 passenger</option>
-                  <option value="2">2 passengers</option>
-                  <option value="3">3 passengers</option>
-                  <option value="4">4 passengers</option>
-                  <option value="5">5 passengers</option>
-                  <option value="6">6 passengers</option>
-                  <option value="7">7 passengers</option>
-                  <option value="8+">8+ passengers</option>
+              <div class="field" data-field="hours" hidden>
+                <label for="hours">Hours</label>
+                <select id="hours" name="hours">
+                  <option value="">Any</option>
+                  <option value="1">1 hour</option>
+                  <option value="2">2 hours</option>
+                  <option value="3">3 hours</option>
+                  <option value="4">4 hours</option>
+                  <option value="5">5 hours</option>
+                  <option value="6">6 hours</option>
+                  <option value="7">7 hours</option>
+                  <option value="8">8 hours</option>
+                  <option value="9">9 hours</option>
+                  <option value="10">10 hours</option>
+                  <option value="11">11 hours</option>
+                  <option value="12+">12+ hours</option>
                 </select>
-                <p class="field-error" id="passengers-error" hidden></p>
-              </div>
-              <div class="field" data-field="luggage">
-                <label for="luggage">Bags</label>
-                <select id="luggage" name="luggage">
-                  <option value="">Select bags</option>
-                  <option value="0">0 bags</option>
-                  <option value="1">1 bag</option>
-                  <option value="2">2 bags</option>
-                  <option value="3">3 bags</option>
-                  <option value="4">4 bags</option>
-                  <option value="5">5 bags</option>
-                  <option value="6">6 bags</option>
-                  <option value="7">7 bags</option>
-                  <option value="8">8 bags</option>
-                  <option value="9">9 bags</option>
-                </select>
-                <p class="field-error" id="luggage-error" hidden></p>
+                <p class="field-error" id="hours-error" hidden></p>
               </div>
               <div class="field field-wide" data-field="pickup">
                 <label for="pickup">Pickup</label>
@@ -208,29 +200,48 @@
                 />
                 <p class="field-error" id="dropoff-error" hidden></p>
               </div>
-              <div class="field" data-field="datetime">
-                <label for="datetime">Date and time</label>
-                <input id="datetime" name="datetime" type="datetime-local" />
-                <p class="field-error" id="datetime-error" hidden></p>
+              <div class="field" data-field="flight" hidden>
+                <label for="flight">Flight details</label>
+                <input
+                  id="flight"
+                  name="flight"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Airline and flight number"
+                />
+                <p class="field-error" id="flight-error" hidden></p>
               </div>
-              <div class="field" data-field="hours">
-                <label for="hours">Hours</label>
-                <select id="hours" name="hours">
-                  <option value="">Any</option>
-                  <option value="1">1 hour</option>
-                  <option value="2">2 hours</option>
-                  <option value="3">3 hours</option>
-                  <option value="4">4 hours</option>
-                  <option value="5">5 hours</option>
-                  <option value="6">6 hours</option>
-                  <option value="7">7 hours</option>
-                  <option value="8">8 hours</option>
-                  <option value="9">9 hours</option>
-                  <option value="10">10 hours</option>
-                  <option value="11">11 hours</option>
-                  <option value="12+">12+ hours</option>
+              <div class="field" data-field="luggage">
+                <label for="luggage">Bags</label>
+                <select id="luggage" name="luggage">
+                  <option value="">Select bags</option>
+                  <option value="0">0 bags</option>
+                  <option value="1">1 bag</option>
+                  <option value="2">2 bags</option>
+                  <option value="3">3 bags</option>
+                  <option value="4">4 bags</option>
+                  <option value="5">5 bags</option>
+                  <option value="6">6 bags</option>
+                  <option value="7">7 bags</option>
+                  <option value="8">8 bags</option>
+                  <option value="9">9 bags</option>
                 </select>
-                <p class="field-error" id="hours-error" hidden></p>
+                <p class="field-error" id="luggage-error" hidden></p>
+              </div>
+              <div class="field" data-field="passengers">
+                <label for="passengers">Passengers</label>
+                <select id="passengers" name="passengers">
+                  <option value="">Select passengers</option>
+                  <option value="1">1 passenger</option>
+                  <option value="2">2 passengers</option>
+                  <option value="3">3 passengers</option>
+                  <option value="4">4 passengers</option>
+                  <option value="5">5 passengers</option>
+                  <option value="6">6 passengers</option>
+                  <option value="7">7 passengers</option>
+                  <option value="8+">8+ passengers</option>
+                </select>
+                <p class="field-error" id="passengers-error" hidden></p>
               </div>
             </div>
             <button class="submit" type="submit">Request quote</button>

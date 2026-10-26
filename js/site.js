@@ -7,7 +7,7 @@ var AUREN = (function () {
   };
 
   var REQUIRED = ["vehicle", "service", "passengers", "luggage", "pickup", "datetime"];
-  var ORDER = ["vehicle", "service", "passengers", "luggage", "pickup", "dropoff", "datetime", "hours"];
+  var ORDER = ["vehicle", "datetime", "service", "hours", "pickup", "dropoff", "flight", "luggage", "passengers"];
 
   function validate(values, messages, now) {
     var errors = {};
@@ -57,6 +57,7 @@ var AUREN = (function () {
       });
       if (!matched) return;
       select.value = value;
+      if (name === "service") syncServiceFields();
       var field = select.closest("[data-field]");
       if (!field) return;
       field.classList.add("is-set");
@@ -144,6 +145,19 @@ var AUREN = (function () {
     var status = form.querySelector("[data-status]");
     var draft = form.querySelector("[data-draft]");
 
+    function syncServiceFields() {
+      var service = form.elements.service ? form.elements.service.value : "";
+      var hours = form.querySelector('[data-field="hours"]');
+      var flight = form.querySelector('[data-field="flight"]');
+      if (hours) hours.hidden = service !== "dedicated-hourly";
+      if (flight) flight.hidden = service !== "airport";
+    }
+
+    syncServiceFields();
+    if (form.elements.service) {
+      form.elements.service.addEventListener("change", syncServiceFields);
+    }
+
     form.addEventListener("input", clearOne);
     form.addEventListener("change", clearOne);
 
@@ -164,9 +178,11 @@ var AUREN = (function () {
       if (draft) draft.hidden = true;
 
       var values = {};
-      REQUIRED.concat(["dropoff", "hours"]).forEach(function (key) {
+      REQUIRED.concat(["dropoff", "hours", "flight"]).forEach(function (key) {
         values[key] = raw(key);
       });
+      if (values.service !== "dedicated-hourly") values.hours = "";
+      if (values.service !== "airport") values.flight = "";
 
       var errors = validate(values, messages());
       var keys = Object.keys(errors);
@@ -198,6 +214,8 @@ var AUREN = (function () {
         display[key] = shown(key);
         labels[key] = labelText(key);
       });
+      if (values.service !== "dedicated-hourly") display.hours = "";
+      if (values.service !== "airport") display.flight = "";
 
       var terms = form.querySelector("[data-whatsapp-note]");
       var message = compose(

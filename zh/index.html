@@ -140,6 +140,11 @@
                 </select>
                 <p class="field-error" id="vehicle-error" hidden></p>
               </div>
+              <div class="field" data-field="datetime">
+                <label for="datetime">日期与时间</label>
+                <input id="datetime" name="datetime" type="datetime-local" />
+                <p class="field-error" id="datetime-error" hidden></p>
+              </div>
               <div class="field" data-field="service">
                 <label for="service">服务</label>
                 <select id="service" name="service">
@@ -155,37 +160,24 @@
                 </select>
                 <p class="field-error" id="service-error" hidden></p>
               </div>
-              <div class="field" data-field="passengers">
-                <label for="passengers">乘客</label>
-                <select id="passengers" name="passengers">
-                  <option value="">请选择人数</option>
-                  <option value="1">1 位</option>
-                  <option value="2">2 位</option>
-                  <option value="3">3 位</option>
-                  <option value="4">4 位</option>
-                  <option value="5">5 位</option>
-                  <option value="6">6 位</option>
-                  <option value="7">7 位</option>
-                  <option value="8+">8 位或以上</option>
+              <div class="field" data-field="hours" hidden>
+                <label for="hours">时长</label>
+                <select id="hours" name="hours">
+                  <option value="">不限</option>
+                  <option value="1">1 小时</option>
+                  <option value="2">2 小时</option>
+                  <option value="3">3 小时</option>
+                  <option value="4">4 小时</option>
+                  <option value="5">5 小时</option>
+                  <option value="6">6 小时</option>
+                  <option value="7">7 小时</option>
+                  <option value="8">8 小时</option>
+                  <option value="9">9 小时</option>
+                  <option value="10">10 小时</option>
+                  <option value="11">11 小时</option>
+                  <option value="12+">12 小时或以上</option>
                 </select>
-                <p class="field-error" id="passengers-error" hidden></p>
-              </div>
-              <div class="field" data-field="luggage">
-                <label for="luggage">行李</label>
-                <select id="luggage" name="luggage">
-                  <option value="">请选择件数</option>
-                  <option value="0">0 件</option>
-                  <option value="1">1 件</option>
-                  <option value="2">2 件</option>
-                  <option value="3">3 件</option>
-                  <option value="4">4 件</option>
-                  <option value="5">5 件</option>
-                  <option value="6">6 件</option>
-                  <option value="7">7 件</option>
-                  <option value="8">8 件</option>
-                  <option value="9">9 件</option>
-                </select>
-                <p class="field-error" id="luggage-error" hidden></p>
+                <p class="field-error" id="hours-error" hidden></p>
               </div>
               <div class="field field-wide" data-field="pickup">
                 <label for="pickup">上车地点</label>
@@ -209,29 +201,48 @@
                 />
                 <p class="field-error" id="dropoff-error" hidden></p>
               </div>
-              <div class="field" data-field="datetime">
-                <label for="datetime">日期与时间</label>
-                <input id="datetime" name="datetime" type="datetime-local" />
-                <p class="field-error" id="datetime-error" hidden></p>
+              <div class="field" data-field="flight" hidden>
+                <label for="flight">航班信息</label>
+                <input
+                  id="flight"
+                  name="flight"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="航空公司与航班号"
+                />
+                <p class="field-error" id="flight-error" hidden></p>
               </div>
-              <div class="field" data-field="hours">
-                <label for="hours">时长</label>
-                <select id="hours" name="hours">
-                  <option value="">不限</option>
-                  <option value="1">1 小时</option>
-                  <option value="2">2 小时</option>
-                  <option value="3">3 小时</option>
-                  <option value="4">4 小时</option>
-                  <option value="5">5 小时</option>
-                  <option value="6">6 小时</option>
-                  <option value="7">7 小时</option>
-                  <option value="8">8 小时</option>
-                  <option value="9">9 小时</option>
-                  <option value="10">10 小时</option>
-                  <option value="11">11 小时</option>
-                  <option value="12+">12 小时或以上</option>
+              <div class="field" data-field="luggage">
+                <label for="luggage">行李</label>
+                <select id="luggage" name="luggage">
+                  <option value="">请选择件数</option>
+                  <option value="0">0 件</option>
+                  <option value="1">1 件</option>
+                  <option value="2">2 件</option>
+                  <option value="3">3 件</option>
+                  <option value="4">4 件</option>
+                  <option value="5">5 件</option>
+                  <option value="6">6 件</option>
+                  <option value="7">7 件</option>
+                  <option value="8">8 件</option>
+                  <option value="9">9 件</option>
                 </select>
-                <p class="field-error" id="hours-error" hidden></p>
+                <p class="field-error" id="luggage-error" hidden></p>
+              </div>
+              <div class="field" data-field="passengers">
+                <label for="passengers">乘客</label>
+                <select id="passengers" name="passengers">
+                  <option value="">请选择人数</option>
+                  <option value="1">1 位</option>
+                  <option value="2">2 位</option>
+                  <option value="3">3 位</option>
+                  <option value="4">4 位</option>
+                  <option value="5">5 位</option>
+                  <option value="6">6 位</option>
+                  <option value="7">7 位</option>
+                  <option value="8+">8 位或以上</option>
+                </select>
+                <p class="field-error" id="passengers-error" hidden></p>
               </div>
             </div>
             <button class="submit" type="submit">询价预约</button>

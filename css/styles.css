@@ -855,7 +855,6 @@ html[lang="zh-CN"] .footer-title {
   .wrap { width: min(calc(100% - 3rem), var(--max)); }
   .quote { padding: 1.5rem 1.4rem 1.3rem; }
   .fields { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  /* Pickup and drop-off share a row. */
   .field-wide { grid-column: auto; }
   .features { grid-template-columns: 1fr 1fr; }
   .services { grid-template-columns: 1fr 1fr; }
@@ -879,7 +878,6 @@ html[lang="zh-CN"] .footer-title {
   .assurances,
   .proof { grid-template-columns: repeat(4, 1fr); }
   .fields { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  /* Second row: pickup, drop-off, date and time, hours. */
   .field-wide { grid-column: auto; }
 }
 
