@@ -564,6 +564,44 @@ html[lang="zh-CN"] .mark { font-style: normal; }
   outline-offset: 2px;
 }
 
+.passenger-panel {
+  max-height: min(32rem, calc(100vh - 6.5rem));
+  overflow-y: auto;
+}
+
+.passenger-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.passenger-name small {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: #8b9198;
+}
+
+.passenger-ages:empty { display: none; }
+
+.passenger-ages {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.85rem;
+}
+
+.field select.passenger-age {
+  height: 2.75rem;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: #a7adb4;
+  padding-left: 0;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.field select.passenger-age.has-value { color: #3d434a; }
+
 .field.is-set input,
 .field.is-set select { outline: 2px solid var(--gold); }
 

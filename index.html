@@ -259,19 +259,59 @@
                 </div>
                 <p class="field-error" id="luggage-error" hidden></p>
               </div>
-              <div class="field" data-field="passengers">
+              <div
+                class="field luggage-field"
+                data-field="passengers"
+                data-passengers
+                data-adult-one="Adult"
+                data-adult-many="Adults"
+                data-child-one="Child"
+                data-child-many="Children"
+                data-age-label="Child {n} Age"
+                data-ages-prefix="ages"
+              >
                 <label for="passengers">Passengers</label>
-                <select id="passengers" name="passengers">
-                  <option value="">Select passengers</option>
-                  <option value="1">1 passenger</option>
-                  <option value="2">2 passengers</option>
-                  <option value="3">3 passengers</option>
-                  <option value="4">4 passengers</option>
-                  <option value="5">5 passengers</option>
-                  <option value="6">6 passengers</option>
-                  <option value="7">7 passengers</option>
-                  <option value="8+">8+ passengers</option>
-                </select>
+                <div class="luggage-anchor">
+                  <button
+                    type="button"
+                    id="passengers"
+                    name="passengers"
+                    class="luggage-trigger"
+                    value="1 Adult, 0 Children"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    aria-controls="passenger-panel"
+                  >
+                    1 Adult, 0 Children
+                  </button>
+                  <div
+                    id="passenger-panel"
+                    class="luggage-panel passenger-panel"
+                    hidden
+                    role="dialog"
+                    aria-labelledby="passenger-panel-title"
+                  >
+                    <p class="luggage-panel-title" id="passenger-panel-title">Passengers</p>
+                    <div class="luggage-row">
+                      <span>Adults</span>
+                      <div class="luggage-stepper">
+                        <button type="button" data-passenger-dec="adults" aria-label="Fewer adults" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button>
+                        <span data-passenger-count="adults">1</span>
+                        <button type="button" data-passenger-inc="adults" aria-label="More adults"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></button>
+                      </div>
+                    </div>
+                    <div class="luggage-row">
+                      <span class="passenger-name">Children<small>(Age 0-12)</small></span>
+                      <div class="luggage-stepper">
+                        <button type="button" data-passenger-dec="children" aria-label="Fewer children" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg></button>
+                        <span data-passenger-count="children">0</span>
+                        <button type="button" data-passenger-inc="children" aria-label="More children"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></button>
+                      </div>
+                    </div>
+                    <div class="passenger-ages" data-passenger-ages></div>
+                    <button type="button" class="luggage-done" data-passenger-done>Done</button>
+                  </div>
+                </div>
                 <p class="field-error" id="passengers-error" hidden></p>
               </div>
             </div>

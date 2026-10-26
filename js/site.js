@@ -135,6 +135,160 @@ var AUREN = (function () {
     paint();
   }
 
+  function mountPassengers(doc, form) {
+    var root = form.querySelector("[data-passengers]");
+    if (!root) return;
+    var trigger = root.querySelector(".luggage-trigger");
+    var panel = root.querySelector(".passenger-panel");
+    var agesBox = root.querySelector("[data-passenger-ages]");
+    if (!trigger || !panel || !agesBox) return;
+
+    var adultOne = root.getAttribute("data-adult-one") || "Adult";
+    var adultMany = root.getAttribute("data-adult-many") || "Adults";
+    var childOne = root.getAttribute("data-child-one") || "Child";
+    var childMany = root.getAttribute("data-child-many") || "Children";
+    var ageLabel = root.getAttribute("data-age-label") || "Child {n} Age";
+    var agesPrefix = root.getAttribute("data-ages-prefix") || "ages";
+    var adultMin = 1;
+    var adultMax = 13;
+    var childMax = 7;
+    var counts = { adults: 1, children: 0 };
+    var ages = [];
+
+    function word(count, one, many) {
+      return count === 1 ? one : many;
+    }
+
+    function summary() {
+      return counts.adults + " " + word(counts.adults, adultOne, adultMany) + ", " + counts.children + " " + word(counts.children, childOne, childMany);
+    }
+
+    function stored() {
+      var text = summary();
+      if (!counts.children) return text;
+      var parts = [];
+      for (var i = 0; i < counts.children; i++) parts.push(ages[i] ? ages[i] : "—");
+      return text + " (" + agesPrefix + " " + parts.join(", ") + ")";
+    }
+
+    function renderAges() {
+      agesBox.textContent = "";
+      for (var i = 0; i < counts.children; i++) {
+        var select = doc.createElement("select");
+        select.className = "passenger-age" + (ages[i] ? " has-value" : "");
+        select.setAttribute("data-child-index", String(i));
+        select.setAttribute("aria-label", ageLabel.replace("{n}", String(i + 1)));
+        var placeholder = doc.createElement("option");
+        placeholder.value = "";
+        placeholder.textContent = ageLabel.replace("{n}", String(i + 1));
+        select.appendChild(placeholder);
+        for (var age = 0; age <= 12; age++) {
+          var option = doc.createElement("option");
+          option.value = String(age);
+          option.textContent = String(age);
+          select.appendChild(option);
+        }
+        select.value = ages[i] || "";
+        agesBox.appendChild(select);
+      }
+    }
+
+    function paint() {
+      var adultCount = root.querySelector('[data-passenger-count="adults"]');
+      var childCount = root.querySelector('[data-passenger-count="children"]');
+      if (adultCount) adultCount.textContent = String(counts.adults);
+      if (childCount) childCount.textContent = String(counts.children);
+      trigger.textContent = summary();
+      trigger.value = stored();
+      var decAdults = root.querySelector('[data-passenger-dec="adults"]');
+      var incAdults = root.querySelector('[data-passenger-inc="adults"]');
+      var decChildren = root.querySelector('[data-passenger-dec="children"]');
+      var incChildren = root.querySelector('[data-passenger-inc="children"]');
+      if (decAdults) decAdults.disabled = counts.adults <= adultMin;
+      if (incAdults) incAdults.disabled = counts.adults >= adultMax;
+      if (decChildren) decChildren.disabled = counts.children <= 0;
+      if (incChildren) incChildren.disabled = counts.children >= childMax;
+    }
+
+    function setChildren(next) {
+      counts.children = next;
+      if (ages.length > counts.children) ages.length = counts.children;
+      while (ages.length < counts.children) ages.push("");
+      renderAges();
+      paint();
+    }
+
+    function place() {
+      panel.classList.remove("is-align-end");
+      var width = panel.getBoundingClientRect().width;
+      var left = trigger.getBoundingClientRect().left;
+      var spaceRight = doc.documentElement.clientWidth - left - 8;
+      panel.classList.toggle("is-align-end", spaceRight < width);
+    }
+
+    function openPanel() {
+      panel.hidden = false;
+      root.classList.add("is-open");
+      trigger.setAttribute("aria-expanded", "true");
+      place();
+    }
+
+    function closePanel(focusTrigger) {
+      panel.hidden = true;
+      root.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+      if (focusTrigger) trigger.focus();
+    }
+
+    trigger.addEventListener("click", function () {
+      if (panel.hidden) openPanel();
+      else closePanel(false);
+    });
+
+    panel.addEventListener("click", function (event) {
+      var dec = event.target.closest ? event.target.closest("[data-passenger-dec]") : null;
+      var inc = event.target.closest ? event.target.closest("[data-passenger-inc]") : null;
+      if (dec) {
+        var down = dec.getAttribute("data-passenger-dec");
+        if (down === "adults" && counts.adults > adultMin) counts.adults -= 1;
+        if (down === "children" && counts.children > 0) setChildren(counts.children - 1);
+        else paint();
+      }
+      if (inc) {
+        var up = inc.getAttribute("data-passenger-inc");
+        if (up === "adults" && counts.adults < adultMax) counts.adults += 1;
+        if (up === "children" && counts.children < childMax) setChildren(counts.children + 1);
+        else paint();
+      }
+      if (event.target.closest && event.target.closest("[data-passenger-done]")) closePanel(true);
+    });
+
+    agesBox.addEventListener("change", function (event) {
+      var select = event.target;
+      if (!select || select.tagName !== "SELECT") return;
+      var index = Number(select.getAttribute("data-child-index"));
+      ages[index] = select.value;
+      select.classList.toggle("has-value", !!select.value);
+      trigger.value = stored();
+    });
+
+    doc.addEventListener("click", function (event) {
+      if (panel.hidden) return;
+      if (root.contains(event.target)) return;
+      closePanel(false);
+    });
+
+    doc.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !panel.hidden) closePanel(true);
+    });
+
+    doc.defaultView.addEventListener("resize", function () {
+      if (!panel.hidden) place();
+    });
+
+    paint();
+  }
+
   function mount(doc) {
     var form = doc.querySelector("[data-quote-form]");
     if (!form) return;
@@ -253,6 +407,7 @@ var AUREN = (function () {
     }
 
     mountLuggage(doc, form);
+    mountPassengers(doc, form);
 
     form.addEventListener("input", clearOne);
     form.addEventListener("change", clearOne);
