@@ -448,7 +448,7 @@ html[lang="zh-CN"] .mark { font-style: normal; }
   color: var(--ink);
   padding: 0 0.85rem;
   text-align: left;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
 }
 
@@ -472,11 +472,11 @@ html[lang="zh-CN"] .mark { font-style: normal; }
 .luggage-panel.is-align-end { left: auto; right: 0; }
 
 .luggage-panel-title {
-  font-family: var(--display);
-  font-size: 2rem;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  font-family: Jost, ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
   color: var(--ink);
 }
 
@@ -500,14 +500,25 @@ html[lang="zh-CN"] .mark { font-style: normal; }
 }
 
 .luggage-stepper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
+  padding: 0;
   border-radius: 50%;
   border: 1.5px solid #b7bcc3;
   background: transparent;
   color: #2c3138;
-  font-size: 1.45rem;
-  line-height: 1;
+}
+
+.luggage-stepper button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
 }
 
 .luggage-stepper button:disabled {
@@ -523,7 +534,7 @@ html[lang="zh-CN"] .mark { font-style: normal; }
 .luggage-stepper [data-luggage-count] {
   min-width: 1.25rem;
   text-align: center;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 1.2rem;
   color: var(--ink);
 }
@@ -533,16 +544,20 @@ html[lang="zh-CN"] .mark { font-style: normal; }
   margin-top: 1.6rem;
   margin-left: auto;
   min-width: 9.5rem;
-  height: 3.35rem;
-  padding: 0 1.4rem;
+  min-height: 3.15rem;
+  padding: 0 1.8rem;
   border: 0;
-  border-radius: 14px;
+  border-radius: 999px;
   background-image: var(--gold-surface);
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 1.65rem;
-  font-weight: 500;
+  color: var(--on-gold);
+  font-family: Jost, ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 20px rgba(169, 135, 63, 0.24);
 }
+
+.luggage-done:hover { filter: brightness(1.06); }
 
 .luggage-done:focus-visible {
   outline: 2px solid var(--gold-deep);
