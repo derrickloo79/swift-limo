@@ -41,6 +41,100 @@ var AUREN = (function () {
     return lines.join("\n").trim();
   }
 
+  function mountLuggage(doc, form) {
+    var root = form.querySelector("[data-luggage]");
+    if (!root) return;
+    var trigger = root.querySelector(".luggage-trigger");
+    var panel = root.querySelector(".luggage-panel");
+    if (!trigger || !panel) return;
+
+    var bigLabel = root.getAttribute("data-big-label") || "Big";
+    var smallLabel = root.getAttribute("data-small-label") || "Small";
+    var max = 9;
+    var counts = { big: 0, small: 0 };
+
+    function summary() {
+      return counts.big + " " + bigLabel + ", " + counts.small + " " + smallLabel;
+    }
+
+    function paint() {
+      var bigCount = root.querySelector('[data-luggage-count="big"]');
+      var smallCount = root.querySelector('[data-luggage-count="small"]');
+      if (bigCount) bigCount.textContent = String(counts.big);
+      if (smallCount) smallCount.textContent = String(counts.small);
+      var text = summary();
+      trigger.textContent = text;
+      trigger.value = text;
+      var decBig = root.querySelector('[data-luggage-dec="big"]');
+      var decSmall = root.querySelector('[data-luggage-dec="small"]');
+      var incBig = root.querySelector('[data-luggage-inc="big"]');
+      var incSmall = root.querySelector('[data-luggage-inc="small"]');
+      if (decBig) decBig.disabled = counts.big <= 0;
+      if (decSmall) decSmall.disabled = counts.small <= 0;
+      if (incBig) incBig.disabled = counts.big >= max;
+      if (incSmall) incSmall.disabled = counts.small >= max;
+    }
+
+    function place() {
+      panel.classList.remove("is-align-end");
+      var width = panel.getBoundingClientRect().width;
+      var left = trigger.getBoundingClientRect().left;
+      var spaceRight = doc.documentElement.clientWidth - left - 8;
+      panel.classList.toggle("is-align-end", spaceRight < width);
+    }
+
+    function openPanel() {
+      panel.hidden = false;
+      root.classList.add("is-open");
+      trigger.setAttribute("aria-expanded", "true");
+      place();
+    }
+
+    function closePanel(focusTrigger) {
+      panel.hidden = true;
+      root.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+      if (focusTrigger) trigger.focus();
+    }
+
+    trigger.addEventListener("click", function () {
+      if (panel.hidden) openPanel();
+      else closePanel(false);
+    });
+
+    panel.addEventListener("click", function (event) {
+      var dec = event.target.closest ? event.target.closest("[data-luggage-dec]") : null;
+      var inc = event.target.closest ? event.target.closest("[data-luggage-inc]") : null;
+      if (dec) {
+        var down = dec.getAttribute("data-luggage-dec");
+        if (counts[down] > 0) counts[down] -= 1;
+        paint();
+      }
+      if (inc) {
+        var up = inc.getAttribute("data-luggage-inc");
+        if (counts[up] < max) counts[up] += 1;
+        paint();
+      }
+      if (event.target.closest && event.target.closest("[data-luggage-done]")) closePanel(true);
+    });
+
+    doc.addEventListener("click", function (event) {
+      if (panel.hidden) return;
+      if (root.contains(event.target)) return;
+      closePanel(false);
+    });
+
+    doc.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !panel.hidden) closePanel(true);
+    });
+
+    doc.defaultView.addEventListener("resize", function () {
+      if (!panel.hidden) place();
+    });
+
+    paint();
+  }
+
   function mount(doc) {
     var form = doc.querySelector("[data-quote-form]");
     if (!form) return;
@@ -157,6 +251,8 @@ var AUREN = (function () {
     if (form.elements.service) {
       form.elements.service.addEventListener("change", syncServiceFields);
     }
+
+    mountLuggage(doc, form);
 
     form.addEventListener("input", clearOne);
     form.addEventListener("change", clearOne);

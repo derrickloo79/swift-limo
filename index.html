@@ -162,8 +162,6 @@
               <div class="field" data-field="hours" hidden>
                 <label for="hours">Hours</label>
                 <select id="hours" name="hours">
-                  <option value="">Any</option>
-                  <option value="1">1 hour</option>
                   <option value="2">2 hours</option>
                   <option value="3">3 hours</option>
                   <option value="4">4 hours</option>
@@ -211,21 +209,54 @@
                 />
                 <p class="field-error" id="flight-error" hidden></p>
               </div>
-              <div class="field" data-field="luggage">
-                <label for="luggage">Bags</label>
-                <select id="luggage" name="luggage">
-                  <option value="">Select bags</option>
-                  <option value="0">0 bags</option>
-                  <option value="1">1 bag</option>
-                  <option value="2">2 bags</option>
-                  <option value="3">3 bags</option>
-                  <option value="4">4 bags</option>
-                  <option value="5">5 bags</option>
-                  <option value="6">6 bags</option>
-                  <option value="7">7 bags</option>
-                  <option value="8">8 bags</option>
-                  <option value="9">9 bags</option>
-                </select>
+              <div
+                class="field luggage-field"
+                data-field="luggage"
+                data-luggage
+                data-big-label="Big"
+                data-small-label="Small"
+              >
+                <label for="luggage">Luggages</label>
+                <div class="luggage-anchor">
+                  <button
+                    type="button"
+                    id="luggage"
+                    name="luggage"
+                    class="luggage-trigger"
+                    value="0 Big, 0 Small"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    aria-controls="luggage-panel"
+                  >
+                    0 Big, 0 Small
+                  </button>
+                  <div
+                    id="luggage-panel"
+                    class="luggage-panel"
+                    hidden
+                    role="dialog"
+                    aria-labelledby="luggage-panel-title"
+                  >
+                    <p class="luggage-panel-title" id="luggage-panel-title">Luggages</p>
+                    <div class="luggage-row">
+                      <span>Big</span>
+                      <div class="luggage-stepper">
+                        <button type="button" data-luggage-dec="big" aria-label="Fewer big bags" disabled>−</button>
+                        <span data-luggage-count="big">0</span>
+                        <button type="button" data-luggage-inc="big" aria-label="More big bags">+</button>
+                      </div>
+                    </div>
+                    <div class="luggage-row">
+                      <span>Small</span>
+                      <div class="luggage-stepper">
+                        <button type="button" data-luggage-dec="small" aria-label="Fewer small bags" disabled>−</button>
+                        <span data-luggage-count="small">0</span>
+                        <button type="button" data-luggage-inc="small" aria-label="More small bags">+</button>
+                      </div>
+                    </div>
+                    <button type="button" class="luggage-done" data-luggage-done>Done</button>
+                  </div>
+                </div>
                 <p class="field-error" id="luggage-error" hidden></p>
               </div>
               <div class="field" data-field="passengers">

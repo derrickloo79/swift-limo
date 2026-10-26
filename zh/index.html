@@ -163,8 +163,6 @@
               <div class="field" data-field="hours" hidden>
                 <label for="hours">时长</label>
                 <select id="hours" name="hours">
-                  <option value="">不限</option>
-                  <option value="1">1 小时</option>
                   <option value="2">2 小时</option>
                   <option value="3">3 小时</option>
                   <option value="4">4 小时</option>
@@ -212,21 +210,54 @@
                 />
                 <p class="field-error" id="flight-error" hidden></p>
               </div>
-              <div class="field" data-field="luggage">
+              <div
+                class="field luggage-field"
+                data-field="luggage"
+                data-luggage
+                data-big-label="大件"
+                data-small-label="小件"
+              >
                 <label for="luggage">行李</label>
-                <select id="luggage" name="luggage">
-                  <option value="">请选择件数</option>
-                  <option value="0">0 件</option>
-                  <option value="1">1 件</option>
-                  <option value="2">2 件</option>
-                  <option value="3">3 件</option>
-                  <option value="4">4 件</option>
-                  <option value="5">5 件</option>
-                  <option value="6">6 件</option>
-                  <option value="7">7 件</option>
-                  <option value="8">8 件</option>
-                  <option value="9">9 件</option>
-                </select>
+                <div class="luggage-anchor">
+                  <button
+                    type="button"
+                    id="luggage"
+                    name="luggage"
+                    class="luggage-trigger"
+                    value="0 大件, 0 小件"
+                    aria-haspopup="dialog"
+                    aria-expanded="false"
+                    aria-controls="luggage-panel"
+                  >
+                    0 大件, 0 小件
+                  </button>
+                  <div
+                    id="luggage-panel"
+                    class="luggage-panel"
+                    hidden
+                    role="dialog"
+                    aria-labelledby="luggage-panel-title"
+                  >
+                    <p class="luggage-panel-title" id="luggage-panel-title">行李</p>
+                    <div class="luggage-row">
+                      <span>大件</span>
+                      <div class="luggage-stepper">
+                        <button type="button" data-luggage-dec="big" aria-label="减少大件" disabled>−</button>
+                        <span data-luggage-count="big">0</span>
+                        <button type="button" data-luggage-inc="big" aria-label="增加大件">+</button>
+                      </div>
+                    </div>
+                    <div class="luggage-row">
+                      <span>小件</span>
+                      <div class="luggage-stepper">
+                        <button type="button" data-luggage-dec="small" aria-label="减少小件" disabled>−</button>
+                        <span data-luggage-count="small">0</span>
+                        <button type="button" data-luggage-inc="small" aria-label="增加小件">+</button>
+                      </div>
+                    </div>
+                    <button type="button" class="luggage-done" data-luggage-done>完成</button>
+                  </div>
+                </div>
                 <p class="field-error" id="luggage-error" hidden></p>
               </div>
               <div class="field" data-field="passengers">
