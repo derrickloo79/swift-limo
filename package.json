@@ -1,0 +1,19 @@
+{
+  "name": "swift-limo",
+  "version": "1.0.0",
+  "description": "Static bilingual site for Swift Limo, a chauffeur service in Singapore",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8765"
+  },
+  "keywords": [
+    "limousine",
+    "chauffeur",
+    "singapore"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
