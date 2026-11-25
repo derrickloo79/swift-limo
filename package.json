@@ -1,0 +1,20 @@
+{
+  "name": "swift-limo",
+  "version": "1.0.0",
+  "description": "Premium limousine service in Singapore",
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'This is a static HTML site. Open index.html in a browser.'",
+    "build": "echo 'No build step required for static site.'"
+  },
+  "keywords": [
+    "limousine",
+    "chauffeur",
+    "singapore"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
